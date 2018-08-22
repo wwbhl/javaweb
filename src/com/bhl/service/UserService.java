@@ -1,44 +1,41 @@
-package com.bhl.com.bhl.lesson02;
+package com.bhl.service;
 
 import com.bhl.models.User;
 import com.bhl.utils.DButils;
-import org.junit.Test;
+
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
+public class UserService {
 
-public class Demo01 {
-    @Test
-    public  void test4(){
+    public User finderUser(String username, String password) {
+        User user = null;
         Connection conn = null;
         Statement stmt = null;
         ResultSet resultSet = null;
+
         try {
             conn = DButils.getConnection();
             stmt = conn.createStatement();
-            resultSet = stmt.executeQuery("select * from user;");
-            List<User> list = new ArrayList<User>();
-            while (resultSet.next()){
-                User user = new User();
-                
-                user.setId(resultSet.getInt("id"));
-                user.setUsername(resultSet.getString("username"));
+            String sql = "select * from user where username = '" + username + "' and password='" + password + "';";
+            resultSet = stmt.executeQuery(sql);
+            while(resultSet.next()){
+                user = new User();
+                user.setId(resultSet.getInt(1));
+                user.setUsername(resultSet.getString(2));
                 user.setPassword(resultSet.getString(3));
                 user.setEmail(resultSet.getString(4));
                 user.setBirthday(resultSet.getDate(5));
-
-                list.add(user);
             }
-            System.out.println(list);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             DButils.clossAll(conn,stmt,null);
         }
 
+        return user;
     }
 }
+
