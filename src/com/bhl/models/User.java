@@ -4,6 +4,17 @@ import java.util.Date;
 
 public class User {
     private Integer id;
+    private String username;
+    private String password;
+    private String email;
+    private Date birthday;
+
+    public User(String username, String password, String email, Date birthday) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.birthday = birthday;
+    }
 
     public Integer getId() {
         return id;
@@ -44,13 +55,6 @@ public class User {
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
-
-    private String username;
-    private String password;
-    private String email;
-    private Date birthday;
-
-
 
     @Override
     public String toString() {
