@@ -4,21 +4,33 @@ import java.sql.*;
 import java.util.ResourceBundle;
 
 public class DButils {
-    private static String url = null;// "jdbc:mysql://localhost/test";
-    private static String user = null;//"test";
-    private static String password = null;//"test123";
-    private static String driverClass = null;//"com.mysql.jdbc.Driver";
+    private static String url = null;
+    private static String user = null;
+    private static String password = null;
+    private static String driverClass = null;
 
     static {
         try {
-            ResourceBundle rb = ResourceBundle.getBundle("db");
+            //从 db.properites 取数据赋值给静态变量
+
+            /**
+             * 以前使用 Properties 类来读.properties 文件的内容
+             *
+             * 使用 ResourceBundle 资源文件夹
+             *
+             */
+            ResourceBundle rb = ResourceBundle.getBundle("db");//不需要写后缀名
             url = rb.getString("url");
             user = rb.getString("user");
             password = rb.getString("password");
             driverClass = rb.getString("driverClass");
 
-            System.out.println();
-            Class.forName(driverClass);
+            System.out.println("从 db.properites 取数据：");
+            System.out.println("url:"+ url);
+            System.out.println("user:"+user);
+            System.out.println("password"+password);
+            System.out.println("driverClass"+driverClass);
+            Class.forName(driverClass);//加载驱动
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

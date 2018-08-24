@@ -2,6 +2,11 @@ package com.bhl.models;
 
 import java.util.Date;
 
+/**
+ * 对应数据库的字段
+ * @author baohailong
+ */
+
 public class User {
     private Integer id;
     private String username;
@@ -9,12 +14,7 @@ public class User {
     private String email;
     private Date birthday;
 
-    public User(String username, String password, String email, Date birthday) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.birthday = birthday;
-    }
+
 
     public Integer getId() {
         return id;
@@ -54,6 +54,10 @@ public class User {
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+
+    public User() {
+        super();
     }
 
     @Override

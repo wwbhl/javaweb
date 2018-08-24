@@ -8,7 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-//import java.sql.Date
+
 
 public class USerDaoImpl implements IUserDao {
     @Override
@@ -22,7 +22,7 @@ public class USerDaoImpl implements IUserDao {
             //2.获取 connection 对象
             conn = DButils.getConnection();
             //3.获取 Statement 对象
-            String sql = "insert into t_user (username, password, email, birthday) values(?,?,?,?)";
+            String sql = "insert into user (username, password, email, birthday) values(?,?,?,?)";
             ps = conn.prepareStatement(sql);
             //设置参数
             ps.setString(1,user.getUsername());
@@ -47,27 +47,31 @@ public class USerDaoImpl implements IUserDao {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-
+        //写 JDBC代码
         try {
+            //1.注册驱动
+            //2.获取 connection对象
             conn = DButils.getConnection();
-            String sql = "select * from t_user where username = ? and password = ?";
+            //3.查询
+            String sql = "select * from user where username = ? and password = ?";
             ps = conn.prepareStatement(sql);
             ps.setString(1,username);
             ps.setString(2,password);
             rs = ps.executeQuery();
-
+            //4.遍历
             while(rs.next()){
                 user = new User();
                 user.setId(rs.getInt("id"));
                 user.setUsername(rs.getString("username"));
                 user.setPassword(rs.getString("password"));
-                user.setEmail(rs.getString("id"));
-                user.setBirthday(rs.getDate("id"));
+                user.setEmail(rs.getString("email"));
+                user.setBirthday(rs.getDate("birthday"));
 
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
+            //5.关闭资源
             DButils.clossAll(conn,ps,rs);
         }
         return user;
@@ -80,15 +84,17 @@ public class USerDaoImpl implements IUserDao {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        //
+        // 写JDBC代码
         try {
+            // 1.注册驱动
+            // 2.获取connection对象
             conn = DButils.getConnection();
-
-            String sql = "select * from t_user where username = ?";
+            // 3.查询
+            String sql = "select * from user where username = ?";
             ps = conn.prepareStatement(sql);
             ps.setString(1,username);
             rs = ps.executeQuery();
-
+            //4.遍历
             while (rs.next()){
                 user = new User();
                 user.setId(rs.getInt("id"));
@@ -100,6 +106,7 @@ public class USerDaoImpl implements IUserDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
+            // 5.关闭资源
             DButils.clossAll(conn,ps,rs);
         }
         return user;
