@@ -28,8 +28,8 @@ public interface IUserService {
 
     /**
      * 判断用户是否存在
-     * @param user
+     * @param username
      * @return
      */
-    public boolean userExsit(String user);
+    public boolean userExsit(String username);
 }
