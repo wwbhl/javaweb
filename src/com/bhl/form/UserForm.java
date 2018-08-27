@@ -30,7 +30,7 @@ public class UserForm {
         }
         //确认密码要与前面的密码一致
         if(!password.equals(repassword)){
-            err.put("repassowrd","确认密码要与前面的密码一致");
+            err.put("repassword","确认密码要与前面的密码一致");
         }
         //邮箱的格式要正确
         if(email == null || email.trim().length() == 0){
