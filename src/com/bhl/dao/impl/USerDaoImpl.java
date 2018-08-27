@@ -2,7 +2,7 @@ package com.bhl.dao.impl;
 
 import com.bhl.dao.IUserDao;
 import com.bhl.models.User;
-import com.bhl.utils.DButils;
+import com.bhl.utils.JNDIUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +20,7 @@ public class USerDaoImpl implements IUserDao {
         try {
             //1.注册驱动
             //2.获取 connection 对象
-            conn = DButils.getConnection();
+            conn = JNDIUtils.getConnection();
             //3.获取 Statement 对象
             String sql = "insert into user (username, password, email, birthday) values(?,?,?,?)";
             ps = conn.prepareStatement(sql);
@@ -36,7 +36,7 @@ public class USerDaoImpl implements IUserDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DButils.clossAll(conn,ps,null);
+            JNDIUtils.close(null,ps,conn);
 
         }
     }
@@ -51,7 +51,7 @@ public class USerDaoImpl implements IUserDao {
         try {
             //1.注册驱动
             //2.获取 connection对象
-            conn = DButils.getConnection();
+            conn = JNDIUtils.getConnection();
             //3.查询
             String sql = "select * from user where username = ? and password = ?";
             ps = conn.prepareStatement(sql);
@@ -72,7 +72,7 @@ public class USerDaoImpl implements IUserDao {
             e.printStackTrace();
         } finally {
             //5.关闭资源
-            DButils.clossAll(conn,ps,rs);
+            JNDIUtils.close(rs,ps,conn);
         }
         return user;
     }
@@ -88,7 +88,7 @@ public class USerDaoImpl implements IUserDao {
         try {
             // 1.注册驱动
             // 2.获取connection对象
-            conn = DButils.getConnection();
+            conn = JNDIUtils.getConnection();
             // 3.查询
             String sql = "select * from user where username = ?";
             ps = conn.prepareStatement(sql);
@@ -107,7 +107,7 @@ public class USerDaoImpl implements IUserDao {
             e.printStackTrace();
         } finally {
             // 5.关闭资源
-            DButils.clossAll(conn,ps,rs);
+            JNDIUtils.close(rs,ps,conn);
         }
         return user;
     }

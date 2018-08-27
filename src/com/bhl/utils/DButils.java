@@ -28,7 +28,7 @@ public class DButils {
             System.out.println("从 db.properites 取数据：");
             System.out.println("url:"+ url);
             System.out.println("user:"+user);
-            System.out.println("password"+password);
+            System.out.println("password:"+password);
             System.out.println("driverClass"+driverClass);
             Class.forName(driverClass);//加载驱动
         } catch (ClassNotFoundException e) {
