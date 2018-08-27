@@ -30,7 +30,7 @@ public class JNDIUtils {
         return ds.getConnection();
     }
 
-    public static void close(ResultSet rs, Statement stmt, Connection conn) {
+    public static void closeAll(Connection conn, Statement stmt,ResultSet rs) {
         if (rs != null) {
             try {
                 rs.close();

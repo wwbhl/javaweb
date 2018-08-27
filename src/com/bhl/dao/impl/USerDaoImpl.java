@@ -2,7 +2,8 @@ package com.bhl.dao.impl;
 
 import com.bhl.dao.IUserDao;
 import com.bhl.models.User;
-import com.bhl.utils.JNDIUtils;
+import com.bhl.utils.C3P0Utils;
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +21,7 @@ public class USerDaoImpl implements IUserDao {
         try {
             //1.注册驱动
             //2.获取 connection 对象
-            conn = JNDIUtils.getConnection();
+            conn = C3P0Utils.getConnection();
             //3.获取 Statement 对象
             String sql = "insert into user (username, password, email, birthday) values(?,?,?,?)";
             ps = conn.prepareStatement(sql);
@@ -36,7 +37,7 @@ public class USerDaoImpl implements IUserDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            JNDIUtils.close(null,ps,conn);
+            C3P0Utils.closeAll(conn,ps,null);
 
         }
     }
@@ -51,7 +52,7 @@ public class USerDaoImpl implements IUserDao {
         try {
             //1.注册驱动
             //2.获取 connection对象
-            conn = JNDIUtils.getConnection();
+            conn = C3P0Utils.getConnection();
             //3.查询
             String sql = "select * from user where username = ? and password = ?";
             ps = conn.prepareStatement(sql);
@@ -72,7 +73,7 @@ public class USerDaoImpl implements IUserDao {
             e.printStackTrace();
         } finally {
             //5.关闭资源
-            JNDIUtils.close(rs,ps,conn);
+            C3P0Utils.closeAll(conn,ps,rs);
         }
         return user;
     }
@@ -88,7 +89,7 @@ public class USerDaoImpl implements IUserDao {
         try {
             // 1.注册驱动
             // 2.获取connection对象
-            conn = JNDIUtils.getConnection();
+            conn = C3P0Utils.getConnection();
             // 3.查询
             String sql = "select * from user where username = ?";
             ps = conn.prepareStatement(sql);
@@ -107,7 +108,7 @@ public class USerDaoImpl implements IUserDao {
             e.printStackTrace();
         } finally {
             // 5.关闭资源
-            JNDIUtils.close(rs,ps,conn);
+            C3P0Utils.closeAll(conn,ps,rs);
         }
         return user;
     }

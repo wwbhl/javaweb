@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 
-@WebServlet("/RegisterServlet")
+@WebServlet(name ="RegisterServlet",urlPatterns = {"/RegisterServlet"})
 public class RegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //1.判断 jsp 提交的表单参数是否都合法

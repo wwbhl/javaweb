@@ -23,7 +23,7 @@ import java.lang.reflect.InvocationTargetException;
  *
  */
 
-@WebServlet("/LoginServlet")
+@WebServlet(name = "LoginServlet",urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
     private static final  long serialVersionUID = 1L;
 
